@@ -31,9 +31,9 @@ class Admin_model extends CI_Model
       return $this->db->insert('login',$data);
   }
 
-  public function update($id){
-    $data = $this->select($id)->row();
-    
+  public function update_account($id,$data){
+    $this->db->where('id_account', $id);
+    $this->db->update('bpjs_account', $data);
   }
 
   public function create_user($data){
@@ -55,7 +55,8 @@ class Admin_model extends CI_Model
       'id_class' => $data['id_class'],
       'health_facility' => $data['health_facility'],
       'debt_start' => $data['debt_start'],
-      'debt_end' => $data['debt_end']
+      'debt_end' => $data['debt_end'],
+      'debt_month' => $data['debt_month']
     );
     return $this->db->insert('bpjs_account',$array);
   }

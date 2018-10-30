@@ -33,18 +33,15 @@ class Admin_controller extends CI_Controller
         if($this->Admin_model->create_user($data)){
           $data['id_class'] = $this->input->post('id_class');
           $data['health_facility'] = $this->input->post('health_facility');
+
           $data['debt_start'] = date('Y-m-10');
           $time = strtotime($data['debt_start']);
           $data['debt_end'] = date('Y-m-d', strtotime('+1 month', $time));
 
-          $a = date('Y-m-10');
-          $time = strtotime($a);
-          $b = date('Y-m-d', strtotime('+1 month', $time));
-          $awal = new DateTime($a);
-          $akhir = new DateTime($b);
+          $awal = new DateTime($data['debt_start']);
+          $akhir = new DateTime($data['debt_end']);
           $diff = $akhir->diff($awal);
-          echo (($diff->format('%y') * 12) + $diff->format('%m'));
-
+          $data["debt_month"] = ($diff->format('%y') * 12) + $diff->format('%m');
           if($this->Admin_model->create_bpjs_account($data)){
             echo "Akun BPJS KESEHATAN Berhasil Dibuat";
           }
@@ -75,16 +72,24 @@ class Admin_controller extends CI_Controller
   public function show(){
     $id = $this->input->get('id_user');
     $this->check_debt($id);
-  #  $data = $this->Admin_model->select($id)->row();
+    $data = $this->Admin_model->select($id)->row();
     #echo var_dump($data);
-  #  $this->load->view('admin/view_show',$data);
+    $this->load->view('admin/view_show',$data);
   }
 
   public function check_debt($id){
+    $data['debt_start'] = $this->Admin_model->select($id)->row('debt_start');
     $data['debt_end'] = $this->Admin_model->select($id)->row('debt_end');
     if(date('Y-m-d') > $data['debt_end']){
+      $time = strtotime($data['debt_end']);
       $data['debt_end'] = date('Y-m-10', strtotime('+1 month', $time));
-      $this->Admin_model->update($id);
+
+      $awal = new DateTime($data['debt_start']);
+      $akhir = new DateTime($data['debt_end']);
+      $diff = $akhir->diff($awal);
+
+      $data["debt_month"] = ($diff->format('%y') * 12) + $diff->format('%m');
+      $this->Admin_model->update_account($id,$data);
     }
   }
 

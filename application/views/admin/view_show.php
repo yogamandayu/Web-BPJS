@@ -48,6 +48,21 @@
          <td><?php echo $price; ?></td>
        </tr>
        <tr>
+         <td>Pembayaran Terakhir</td>
+         <td>:</td>
+         <td><?php echo $debt_start; ?></td>
+       </tr>
+       <tr>
+         <td>Batas Pembayaran</td>
+         <td>:</td>
+         <td><?php echo $debt_end; ?></td>
+       </tr>
+       <tr>
+         <td>Total Bulan</td>
+         <td>:</td>
+         <td><?php echo $debt_month; ?></td>
+       </tr>
+       <tr>
          <td>Tunggakan</td>
          <td>:</td>
          <td><?php echo ($price * $debt_month); ?></td>
