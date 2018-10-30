@@ -24,11 +24,16 @@ class Admin_model extends CI_Model
     $this->db->join('bpjs_account','user.id_user = bpjs_account.id_user');
     $this->db->join('bpjs_class','bpjs_class.id_class = bpjs_account.id_class');
     $this->db->where('user.id_user',$id);
-    return $this->db->get()->row();
+    return $this->db->get();
   }
 
   public function create_login($data){
       return $this->db->insert('login',$data);
+  }
+
+  public function update($id){
+    $data = $this->select($id)->row();
+    
   }
 
   public function create_user($data){
