@@ -15,6 +15,7 @@ class Admin_model extends CI_Model
   }
 
   public function select_all(){
+    $this->db->where('id_role',2);
     return $this->db->get('user');
   }
 

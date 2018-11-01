@@ -75,7 +75,7 @@
           </select></td>
         </tr>
         <tr>
-          <td colspan="3" align="center"> <input type="submit" class="btn btn-outline-primary" name="submit" value="Create"> </td>
+          <td colspan="3" align="center"> <input type="submit" class="btn btn-outline-primary" name="submit" value="Save"> </td>
         </tr>
       </form>
     </table>

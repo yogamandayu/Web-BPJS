@@ -20,7 +20,11 @@ class Login_controller extends CI_Controller
     $data['username'] = $this->input->post('username');
     $data['password'] = $this->input->post('password');
     if($this->Login_model->select_login($data)->num_rows() > 0){
-      $this->session->set_userdata('username',$data['username']);
+      $array = array(
+        'username' => $data['username'],
+        'status' => "login"
+      );
+      $this->session->set_userdata($array);
       if($this->Login_model->select_role($this->Login_model->select_id($data))==1){
         $this->load->view('admin/view_homeadmin');
       }

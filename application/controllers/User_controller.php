@@ -8,6 +8,9 @@ class User_controller extends CI_Controller{
     $this->load->helper('url');
     $this->load->library('session');
     $this->load->model('User_model');
+    if($this->session->userdata('status') != "login"){
+			redirect(site_url(''));
+		}
   }
 
   public function view_user(){

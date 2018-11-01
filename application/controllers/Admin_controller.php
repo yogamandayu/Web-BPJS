@@ -8,6 +8,9 @@ class Admin_controller extends CI_Controller
     $this->load->helper('url');
     $this->load->library('session');
     $this->load->model('Admin_model');
+    if($this->session->userdata('status') != "login"){
+			redirect(site_url(''));
+		}
   }
 
   public function view_create()
@@ -100,15 +103,7 @@ class Admin_controller extends CI_Controller
   }
 
   public function update(){
-    $data['id'] = $this->input->post('id');
-    $data['username'] = $this->input->post('username');
-    $data['password'] = $this->input->post('password');
-    if($this->Login_model->create($data)){
-      echo "Akun Berhasil Dibuat";
-    }
-    else {
-      echo "Akun Gagal Dibuat";
-    }
+    $id = $this->input->get('id_user');
   }
 }
 
