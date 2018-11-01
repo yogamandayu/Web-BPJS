@@ -102,8 +102,26 @@ class Admin_controller extends CI_Controller
     $this->index();
   }
 
+  public function view_update(){
+    $id = $this->input->get('id_user');
+    $data = $this->Admin_model->select($id)->row();
+    #echo var_dump($data);
+    $this->load->view('admin/view_update',$data);
+  }
+
   public function update(){
     $id = $this->input->get('id_user');
+    $data_account = array(
+      'health_facility' => $this->input->post('health_facility'),
+      'id_class' => $this->input->post('id_class')
+    );
+    $data_user = array(
+      'name' => $this->input->post('name'),
+      'address' => $this->input->post('address'),
+      'date_of_birth' => $this->input->post('date_of_birth')
+    );
+    $this->Admin_model->update_account($id,$data_account);
+    $this->Admin_model->update_user($id,$data_user);
   }
 }
 

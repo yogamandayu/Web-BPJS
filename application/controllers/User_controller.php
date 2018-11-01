@@ -9,7 +9,7 @@ class User_controller extends CI_Controller{
     $this->load->library('session');
     $this->load->model('User_model');
     if($this->session->userdata('status') != "login"){
-			redirect(site_url(''));
+			redirect(base_url(''));
 		}
   }
 

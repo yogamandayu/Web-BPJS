@@ -34,36 +34,26 @@
       </nav>
     </div>
     <table>
-      <form class="form" action="<?php echo site_url('admin_controller/create')?>"  method="post">
-        <tr>
-          <td>Username</td>
-          <td>:</td>
-          <td> <input type="text" class="form-control" name="username"> </td>
-        </tr>
-        <tr>
-          <td>Password</td>
-          <td>:</td>
-          <td> <input type="password" class="form-control" name="password"> </td>
-        </tr>
+      <form class="form" action="<?php echo site_url('admin_controller/update?id_user='); echo $_GET['id_user'];?>"  method="post">
         <tr>
           <td>Name</td>
           <td>:</td>
-          <td> <input type="text" class="form-control" name="name"> </td>
+          <td> <input type="text" class="form-control" name="name" value="<?php echo $name?>"> </td>
         </tr>
         <tr>
           <td>Address</td>
           <td>:</td>
-          <td> <input type="textarea" class="form-control" name="address"> </td>
+          <td> <input type="textarea" class="form-control" name="address" value="<?php echo $address?>"> </td>
         </tr>
         <tr>
           <td>Date of Birth</td>
           <td>:</td>
-          <td> <input type="date" class="form-control" name="date_of_birth"> </td>
+          <td> <input type="date" class="form-control" name="date_of_birth" value="<?php echo $date_of_birth?>"> </td>
         </tr>
         <tr>
           <td>Health Facility</td>
           <td>:</td>
-          <td> <input type="text" class="form-control" name="health_facility"> </td>
+          <td> <input type="text" class="form-control" name="health_facility" value="<?php echo $health_facility?>"> </td>
         </tr>
         <tr>
           <td>Class</td>

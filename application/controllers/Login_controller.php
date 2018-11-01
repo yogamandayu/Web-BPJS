@@ -26,10 +26,10 @@ class Login_controller extends CI_Controller
       );
       $this->session->set_userdata($array);
       if($this->Login_model->select_role($this->Login_model->select_id($data))==1){
-        $this->load->view('admin/view_homeadmin');
+        redirect('admin_controller/view_home');
       }
       else{
-        $this->load->view('user/view_homeuser');
+        redirect('user_controller/view_home');
       }
     }
     else{
@@ -39,7 +39,7 @@ class Login_controller extends CI_Controller
 
   public function logout(){
     $this->session->sess_destroy();
-    $this->load->view('view_home');
+    redirect('login_controller/view_login');
   }
 
 }

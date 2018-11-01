@@ -37,6 +37,11 @@ class Admin_model extends CI_Model
     $this->db->update('bpjs_account', $data);
   }
 
+  public function update_user($id,$data){
+    $this->db->where('id_user', $id);
+    $this->db->update('user', $data);
+  }
+
   public function create_user($data){
     $array = array(
       'id_user' => $data['id_user'],
