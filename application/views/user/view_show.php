@@ -73,6 +73,11 @@
           <td>:</td>
           <td><?php echo ($price * $debt_month); ?></td>
         </tr>
+        <tr>
+          <td>Status</td>
+          <td>:</td>
+          <td><?php echo $status; ?></td>
+        </tr>
       </table>
     </div>
   </body>

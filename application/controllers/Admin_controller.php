@@ -45,6 +45,7 @@ class Admin_controller extends CI_Controller
           $akhir = new DateTime($data['debt_end']);
           $diff = $akhir->diff($awal);
           $data["debt_month"] = ($diff->format('%y') * 12) + $diff->format('%m');
+          $data["id_status"] = 0;
           if($this->Admin_model->create_bpjs_account($data)){
             echo "Akun BPJS KESEHATAN Berhasil Dibuat";
           }
@@ -92,6 +93,7 @@ class Admin_controller extends CI_Controller
       $diff = $akhir->diff($awal);
 
       $data["debt_month"] = ($diff->format('%y') * 12) + $diff->format('%m');
+      $data["id_status"] = 0;
       $this->Admin_model->update_account($id,$data);
     }
   }

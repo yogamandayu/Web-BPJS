@@ -91,6 +91,11 @@
           <td>:</td>
           <td><?php echo ($price * $debt_month); ?></td>
         </tr>
+        <tr>
+          <td>Status</td>
+          <td>:</td>
+          <td><?php echo $status; ?></td>
+        </tr>
       </table>
       <a href="<?php echo site_url('admin_controller/view_update?id_user='); echo $id_account;?>">Update</a>
       <a href="<?php echo site_url('admin_controller/delete?id_user='); echo $id_account;?>">Delete</a>
