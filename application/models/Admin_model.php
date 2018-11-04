@@ -49,6 +49,7 @@ class Admin_model extends CI_Model
       'name' => $data['name'],
       'address' => $data['address'],
       'date_of_birth' => $data['date_of_birth'],
+      'image' => $data['image'],
       'id_login' => $data['id_user'],
       'id_role' => '2'
     );

@@ -51,6 +51,11 @@
           <td> <input type="text" class="form-control" name="name"> </td>
         </tr>
         <tr>
+          <td>Foto</td>
+          <td>:</td>
+          <td> <input type="file" class="form-control" name="image"> </td>
+        </tr>
+        <tr>
           <td>Address</td>
           <td>:</td>
           <td> <input type="textarea" class="form-control" name="address"> </td>

@@ -32,7 +32,8 @@
     </div>
     <div class="container">
       <table>
-       <br> <img src="<?php echo base_url('image/Profile_Picture.jpg') ?>" alt="<?php echo base_url('image/Profile_Picture.png') ?>" width="10%">
+       <br>
+       <?php echo $foto; ?>
         <tr>
           <td>No. BPJS</td>
           <td>:</td>

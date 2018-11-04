@@ -8,6 +8,13 @@ class Admin_controller extends CI_Controller
     $this->load->helper('url');
     $this->load->library('session');
     $this->load->model('Admin_model');
+    require 'cloudinary/autoload.php';
+    require 'cloudinary/src/Helpers.php';
+    \Cloudinary::config(array(
+      "cloud_name" => "yogamandayu",
+      "api_key" => "722227313554865",
+      "api_secret" => "9jxvGCG9Tpfeu4EQhdSbxraRXF8"
+    ));
     if($this->session->userdata('status') != "login"){
 			redirect(site_url(''));
 		}
@@ -30,6 +37,8 @@ class Admin_controller extends CI_Controller
       $data['password'] = $this->input->post('password');
       if($this->Admin_model->create_login($data)){
         $data['id_user'] = $this->Admin_model->get_data_login($data)->row('id_login');
+        $data['foto'] = $this->input->post('image');
+        $data['image'] = $this->upload_image($data['foto']);
         $data['name'] = $this->input->post('name');
         $data['address'] = $this->input->post('address');
         $data['date_of_birth'] = $this->input->post('date_of_birth');
@@ -73,10 +82,17 @@ class Admin_controller extends CI_Controller
     $this->load->view('admin/view_index',$data);
   }
 
+  public function upload_image($data){
+    #echo '/home/yogamandayu/Documents/Pemrograman Web/htdocs/web_bpjs/assets/image/',$data;
+    $hash = \Cloudinary\Uploader::upload('/home/yogamandayu/Pictures/'.$data);
+    return $hash['public_id'];#http://[::1]/web_bpjs/assets:image:
+  }
+
   public function show(){
     $id = $this->input->get('id_user');
     $this->check_debt($id);
     $data = $this->Admin_model->select($id)->row();
+    $data->foto = cl_image_tag($data->image, array("width"=>200, "crop"=>"scale", "alt" => "Foto Profil" ));
     #echo var_dump($data);
     $this->load->view('admin/view_show',$data);
   }
