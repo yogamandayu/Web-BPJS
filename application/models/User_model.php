@@ -15,6 +15,7 @@ class User_model extends CI_Model
     $this->db->from('user');
     $this->db->join('bpjs_account','user.id_user = bpjs_account.id_user');
     $this->db->join('bpjs_class','bpjs_class.id_class = bpjs_account.id_class');
+    $this->db->join('status','status.id_status = bpjs_account.id_status');
     $this->db->where('user.id_user',$id);
     return $this->db->get()->row();
   }
