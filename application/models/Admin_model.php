@@ -7,10 +7,10 @@ class Admin_model extends CI_Model
     parent::__construct();
   }
 
-  public function get_data_login($data){
+  public function get_data_login($username){
     $this->db->select('*');
     $this->db->from('login');
-    $this->db->where('username',$data['username']);
+    $this->db->where('username',$username);
     return $this->db->get();
   }
 
@@ -64,7 +64,8 @@ class Admin_model extends CI_Model
       'health_facility' => $data['health_facility'],
       'debt_start' => $data['debt_start'],
       'debt_end' => $data['debt_end'],
-      'debt_month' => $data['debt_month']
+      'debt_month' => $data['debt_month'],
+      'id_status' => $data['id_status']
     );
     return $this->db->insert('bpjs_account',$array);
   }

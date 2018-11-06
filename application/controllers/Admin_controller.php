@@ -20,8 +20,8 @@ class Admin_controller extends CI_Controller
 		}
   }
 
-  public function view_create()
-  {
+  public function view_create(){
+    $this->session->set_userdata('create',' ');
     $this->load->view('admin/view_create');
   }
 
@@ -31,47 +31,29 @@ class Admin_controller extends CI_Controller
   }
 
   public function create(){
-    $data['username'] = $this->input->post('username');
-    if($this->Admin_model->get_data_login($data)->num_rows()==0)
-    {
-      $data['password'] = $this->input->post('password');
-      if($this->Admin_model->create_login($data)){
-        $data['id_user'] = $this->Admin_model->get_data_login($data)->row('id_login');
-        $data['foto'] = $this->input->post('image');
-        $data['image'] = $this->upload_image($data['foto']);
-        $data['name'] = $this->input->post('name');
-        $data['address'] = $this->input->post('address');
-        $data['date_of_birth'] = $this->input->post('date_of_birth');
-        if($this->Admin_model->create_user($data)){
-          $data['id_class'] = $this->input->post('id_class');
-          $data['health_facility'] = $this->input->post('health_facility');
-
-          $data['debt_start'] = date('Y-m-10');
-          $time = strtotime($data['debt_start']);
-          $data['debt_end'] = date('Y-m-d', strtotime('+1 month', $time));
-
-          $awal = new DateTime($data['debt_start']);
-          $akhir = new DateTime($data['debt_end']);
-          $diff = $akhir->diff($awal);
-          $data["debt_month"] = ($diff->format('%y') * 12) + $diff->format('%m');
-          $data["id_status"] = 0;
-          if($this->Admin_model->create_bpjs_account($data)){
-            echo "Akun BPJS KESEHATAN Berhasil Dibuat";
-          }
-          else {
-            echo "Akun User Gagal Dibuat";
-          }
-        }
-        else {
-          echo "Akun User Gagal Dibuat";
-        }
-      }
-      else {
-        echo "Akun Login Gagal Dibuat";
-      }
+    $username = $this->input->post('username');
+    if($this->check_username($username)){
+      $this->params_login($username,$this->input->post('password'));
+      $id_user = $this->Admin_model->get_data_login($this->input->post('username'))->row('id_login');
+      $this->params_user(
+        $id_user,
+        $this->input->post('name'),
+        $this->input->post('address'),
+        $this->input->post('image'),
+        $this->input->post('date_of_birth')
+      );
+      $this->params_account(
+        $id_user,
+        $this->input->post('id_class'),
+        $this->input->post('health_facility'),
+        date('Y-m-10')
+      );
+        $this->session->set_userdata('create','success');
+        $this->load->view('admin/view_create');
     }
     else {
-      echo "Username sudah dipakai";
+      $this->session->set_userdata('create','username');
+      $this->load->view('admin/view_create');
     }
   }
 
@@ -80,12 +62,6 @@ class Admin_controller extends CI_Controller
             'rs' => $this->Admin_model->select_all()->result()
           );
     $this->load->view('admin/view_index',$data);
-  }
-
-  public function upload_image($data){
-    #echo '/home/yogamandayu/Documents/Pemrograman Web/htdocs/web_bpjs/assets/image/',$data;
-    $hash = \Cloudinary\Uploader::upload('/home/yogamandayu/Pictures/'.$data);
-    return $hash['public_id'];#http://[::1]/web_bpjs/assets:image:
   }
 
   public function show(){
@@ -141,6 +117,67 @@ class Admin_controller extends CI_Controller
     $this->Admin_model->update_account($id,$data_account);
     $this->Admin_model->update_user($id,$data_user);
   }
-}
 
+  private function check_username($username){
+    if($this->Admin_model->get_data_login($username)->num_rows()==0){
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  private function params_login($username,$password){
+    $array = array(
+      'username' => $username,
+      'password' => $password
+    );
+    #var_dump($array);
+    $this->Admin_model->create_login($array);
+  }
+  private function params_user($id_user,$name,$address,$photo,$date_of_birth){
+    $array = array(
+      'id_user' => $id_user,
+      'name' => $name,
+      'address' => $address,
+      'date_of_birth' => $date_of_birth,
+      'image' => $this->upload_image($photo)
+    );
+    #var_dump($array);
+    $this->Admin_model->create_user($array);
+  }
+  private function params_account($id_user,$id_class,$health_facility,$debt_start){
+    $count = $this->count_month($debt_start);
+    $array = array(
+      'id_user' => $id_user,
+      'id_class' => $id_class,
+      'health_facility' => $health_facility,
+      'debt_start' => $debt_start,
+      'debt_end' => $count['debt_end'],
+      'debt_month' => $count['debt_month'],
+      'id_status' => 0
+    );
+    #var_dump($array);
+    $this->Admin_model->create_bpjs_account($array);
+  }
+
+  private function count_month($debt_start){
+      $debt_end = date('Y-m-d', strtotime('+1 month', strtotime($debt_start)));
+      $awal = new DateTime($debt_start);
+      $akhir = new DateTime($debt_end);
+      $diff = $akhir->diff($awal);
+      $debt_month = ($diff->format('%y') * 12) + $diff->format('%m');
+      $id_status = 0;
+      $array = array(
+        'debt_end' => $debt_end,
+        'debt_month' => ($diff->format('%y') * 12) + $diff->format('%m'),
+      );
+      return $array;
+  }
+
+  private function upload_image($data){
+    $hash = \Cloudinary\Uploader::upload('/home/yogamandayu/Pictures/'.$data);
+    return $hash['public_id'];#http://[::1]/web_bpjs/assets:image:
+  }
+}
  ?>
