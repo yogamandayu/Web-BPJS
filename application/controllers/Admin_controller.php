@@ -11,9 +11,9 @@ class Admin_controller extends CI_Controller
     require 'cloudinary/autoload.php';
     require 'cloudinary/src/Helpers.php';
     \Cloudinary::config(array(
-      "cloud_name" => "yogamandayu",
-      "api_key" => "722227313554865",
-      "api_secret" => "9jxvGCG9Tpfeu4EQhdSbxraRXF8"
+      "cloud_name" => "",
+      "api_key" => "",
+      "api_secret" => ""
     ));
     if($this->session->userdata('status') != "login"){
 			redirect(site_url(''));
