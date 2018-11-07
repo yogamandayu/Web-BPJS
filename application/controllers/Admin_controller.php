@@ -116,6 +116,7 @@ class Admin_controller extends CI_Controller
     );
     $this->Admin_model->update_account($id,$data_account);
     $this->Admin_model->update_user($id,$data_user);
+    $this->index();
   }
 
   private function check_username($username){

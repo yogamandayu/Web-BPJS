@@ -47,27 +47,27 @@
       <form class="form" action="<?php echo site_url('admin_controller/update?id_user='); echo $_GET['id_user'];?>"  method="post">
         <tr>
           <td style="padding:10px;">Name</td>
-          <td> <input type="text" class="form-control form-control-sm" name="name" value="<?php echo $name?>" required> </td>
+          <td> <input type="text" class="form-control form-control-sm" name="name" value="<?php echo $name?>"> </td>
         </tr>
         <tr>
           <td style="padding:10px;">Address</td>
-          <td> <input type="textarea" class="form-control form-control-sm" name="address" value="<?php echo $address?>" required> </td>
+          <td> <input type="textarea" class="form-control form-control-sm" name="address" value="<?php echo $address?>"> </td>
         </tr>
         <tr>
           <td style="padding:10px;">Picture</td>
-          <td> <input type="file" class="form-control-file" name="image" required> </td>
+          <td> <input type="file" class="form-control-file" name="image"> </td>
         </tr>
         <tr>
           <td style="padding:10px;">Date of Birth</td>
-          <td> <input type="date" class="form-control form-control-sm" name="date_of_birth" value="<?php echo $date_of_birth?>" required> </td>
+          <td> <input type="date" class="form-control form-control-sm" name="date_of_birth" value="<?php echo $date_of_birth?>"> </td>
         </tr>
         <tr>
           <td style="padding:10px;">Health Facility</td>
-          <td> <input type="text" class="form-control form-control-sm" name="health_facility" value="<?php echo $health_facility?>" required> </td>
+          <td> <input type="text" class="form-control form-control-sm" name="health_facility" value="<?php echo $health_facility?>"> </td>
         </tr>
         <tr>
           <td style="padding:10px;">Class</td>
-          <td> <select class="form-control form-control-sm" name="id_class" required>
+          <td> <select class="form-control form-control-sm" name="id_class">
             <option value="1"> Class 1 : 80000</option>
             <option value="2"> Class 2 : 51000</option>
             <option value="3"> Class 3 : 25500</option>

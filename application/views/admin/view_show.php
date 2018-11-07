@@ -102,7 +102,7 @@
       <div align="center" class="container w-75 col-sm-5" style="border-radius: 20px; padding:20px;">
         <div class="button">
           <a href="<?php echo site_url('admin_controller/view_update?id_user='); echo $id_account;?>"><button class="btn btn-block btn-primary w-50">Update</button></a><br>
-          <a href="<?php echo site_url('admin_controller/delete?id_user='); echo $id_account;?>"><button class="btn btn-block btn-danger w-50">Delete</button></a>
+          <a href="<?php echo site_url('admin_controller/delete?id_user='); echo $id_account;?>"><button class="btn btn-block btn-danger w-50" onclick="return confirm('Are you sure you want to delete this account?');">Delete</button></a>
         </div>
       </div>
     </div>

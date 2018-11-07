@@ -33,7 +33,8 @@ class Login_controller extends CI_Controller
       }
     }
     else{
-      echo "Login Gagal";
+      echo "<script> alert('Login Gagal')</script>";
+      $this->load->view('login/view_login');
     }
   }
 
